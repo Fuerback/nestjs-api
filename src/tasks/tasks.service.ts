@@ -56,19 +56,12 @@ export class TasksService {
     }
 
     deleteTask(id: string): void {
-        this.tasks = this.tasks.filter(task => task.id !== id);
-
-        // A longer way to do the same thing:
-
-        // const task = this.getTaskById(id);
-        // const index = this.tasks.indexOf(task);
-        // if (index >= 0) {
-        //     this.tasks.splice(index, 1)
-        // }
+        // TODO: improve the performance here avoiding the second iteration
+        const found = this.getTaskById(id);
+        this.tasks = this.tasks.filter(task => task.id !== found.id);
     }
 
     updateTaskStatus(id: string, status: TaskStatus): Task {
-
         const task = this.getTaskById(id);
         task.status = status;
         return task;
