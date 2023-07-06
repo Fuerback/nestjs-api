@@ -1,7 +1,0 @@
--- CREATE TABLE
-DROP TABLE IF EXISTS test;
-CREATE TABLE test (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    price NUMERIC(4, 2)
-);
