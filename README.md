@@ -24,9 +24,19 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A simple project for managing tasks using Nest as a web framework.
 
 ## Installation
+
+Add the environments below to `.env` or export in your favorite bash file.
+
+| Name      | Value |
+| ----------- | ----------- |
+| PG_CONTAINER_NAME      | {CONTAINER_NAME}       |
+| POSTGRES_USER   | {POSTGRES_USER}        |
+| POSTGRES_PASSWORD   | {POSTGRES_PASSWORD}        |
+| POSTGRES_DB   | {POSTGRES_DB}        |
+| PGDATA   | {PGDATA}        |
 
 ```bash
 $ npm install
