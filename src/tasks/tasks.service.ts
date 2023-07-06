@@ -13,9 +13,6 @@ export class TasksService {
         @InjectRepository(TaskRepository)
         private taskRepository: TaskRepository,
     ){}
-    // storing tasks in memory for now
-    // private tasks: Task[] = [];
-
     // getAllTasks(): Task[] {
     //     return this.tasks;
     // }
@@ -59,9 +56,11 @@ export class TasksService {
         }
     }
 
-    // updateTaskStatus(id: string, status: TaskStatus): Task {
-    //     const task = this.getTaskById(id);
-    //     task.status = status;
-    //     return task;
-    // }
+    async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
+        const task = await this.getTaskById(id);
+        task.status = status;
+        await task.save();
+
+        return task;
+    }
 }
