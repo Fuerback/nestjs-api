@@ -29,4 +29,16 @@ export class TasksService {
         this.tasks.push(task);
         return task;
     }
+
+    deleteTask(id: string): void {
+        this.tasks = this.tasks.filter(task => task.id !== id);
+
+        // A longer way to do the same thing:
+        
+        // const task = this.getTaskById(id);
+        // const index = this.tasks.indexOf(task);
+        // if (index >= 0) {
+        //     this.tasks.splice(index, 1)
+        // }
+    }
 }
