@@ -34,11 +34,18 @@ export class TasksService {
         this.tasks = this.tasks.filter(task => task.id !== id);
 
         // A longer way to do the same thing:
-        
+
         // const task = this.getTaskById(id);
         // const index = this.tasks.indexOf(task);
         // if (index >= 0) {
         //     this.tasks.splice(index, 1)
         // }
+    }
+
+    updateTaskStatus(id: string, status: TaskStatus): Task {
+
+        const task = this.getTaskById(id);
+        task.status = status;
+        return task;
     }
 }
