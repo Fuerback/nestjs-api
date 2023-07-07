@@ -5,7 +5,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatus } from './task-status.enum';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
-@EntityRepository(Task)
+@EntityRepository(Task) //TODO: remove it and follow the example from auth/user.repository.ts
 @Injectable()
 export class TaskRepository extends Repository<Task> {
   constructor(private dataSaource: DataSource) {
