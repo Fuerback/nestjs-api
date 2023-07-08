@@ -11,4 +11,25 @@ services:
       PGDATA: ${PGDATA}
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    restart: always
+    volumes:
+      - docker-nest-postgres:/var/lib/postgresql/data
+  api:
+    depends_on:
+      - db
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build development stage from our dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+    env_file:
+    - .env
+    # Run a command against the development stage of the image
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+
+volumes:
+  docker-nest-postgres:
