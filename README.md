@@ -32,11 +32,14 @@ Add the environments below to `.env` or export in your favorite bash file.
 
 | Name      | Value |
 | ----------- | ----------- |
-| PG_CONTAINER_NAME      | {CONTAINER_NAME}       |
-| POSTGRES_USER   | {POSTGRES_USER}        |
-| POSTGRES_PASSWORD   | {POSTGRES_PASSWORD}        |
-| POSTGRES_DB   | {POSTGRES_DB}        |
-| PGDATA   | {PGDATA}        |
+| PG_CONTAINER_NAME      | postgres_task       |
+| POSTGRES_USER   | tasks_admin        |
+| POSTGRES_PASSWORD   | admingres        |
+| POSTGRES_DB   | taskmanagement        |
+| PGDATA   | /data/postgres-task        |
+| PG_HOST   | db        |
+| PG_PORT   | 5432        |
+| APP_PORT   | 3000        |
 
 ```bash
 $ npm install
