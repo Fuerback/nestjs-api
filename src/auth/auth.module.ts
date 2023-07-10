@@ -17,7 +17,7 @@ import { JwtStrategy } from './jwt-strategy';
       },
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
   providers: [AuthService, UserRepository, JwtStrategy],
