@@ -32,7 +32,7 @@ $ docker-compose up -d
 
 ## Endpoints
 
-Add the API documentation here
+OpenAPI documentation [here](./swagger-api.yaml)
 
 ## Test
 
@@ -53,7 +53,7 @@ $ npm run test:cov
 - [ ] Add integration tests
 - [ ] Add more logs
 - [ ] Add Redis
-- [ ] Add Swagger documentation
+- [x] Add Swagger documentation
 
 ## License
 
