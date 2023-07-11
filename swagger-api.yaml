@@ -21,11 +21,15 @@ paths:
       operationId: TasksController_getTasks
       responses:
         "200":
-          description: A list of users
+          description: A list of tasks
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ArrayOfTasks"
+        "401":
+          description: Authorization information is missing or invalid.
+        "5XX":
+          description: Unexpected error.
     post:
       security:
         - bearerAuth: []
@@ -41,7 +45,11 @@ paths:
               $ref: "#/components/schemas/CreateTaskDto"
       responses:
         "201":
-          description: ""
+          description: Created
+        "401":
+          description: Authorization information is missing or invalid.
+        "5XX":
+          description: Unexpected error.
   /tasks/{id}:
     get:
       security:
@@ -57,7 +65,17 @@ paths:
             type: number
       responses:
         "200":
-          description: ""
+          description: A task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          description: Authorization information is missing or invalid.
+        "404":
+          description: A task with the specified ID was not found.
+        "5XX":
+          description: Unexpected error.
     delete:
       security:
         - bearerAuth: []
@@ -72,7 +90,13 @@ paths:
             type: number
       responses:
         "200":
-          description: ""
+          description: "Deleted"
+        "401":
+          description: Authorization information is missing or invalid.
+        "404":
+          description: A task with the specified ID was not found.
+        "5XX":
+          description: Unexpected error.
   /tasks/{id}/status:
     patch:
       security:
@@ -86,9 +110,26 @@ paths:
           in: path
           schema:
             type: number
+      requestBody:
+        description: Status of the task
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskStatus"
       responses:
         "200":
-          description: ""
+          description: "Updated"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          description: Authorization information is missing or invalid.
+        "404":
+          description: A task with the specified ID was not found.
+        "5XX":
+          description: Unexpected error.
   /auth/signup:
     post:
       tags:
@@ -103,7 +144,11 @@ paths:
               $ref: "#/components/schemas/AuthCredentialsDto"
       responses:
         "201":
-          description: ""
+          description: "Signed up"
+        "409":
+          description: "Username already exists"
+        "5XX":
+          description: Unexpected error.
   /auth/signin:
     post:
       tags:
@@ -118,7 +163,15 @@ paths:
               $ref: "#/components/schemas/AuthCredentialsDto"
       responses:
         "201":
-          description: ""
+          description: "Signed in"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessToken"
+        "401":
+          description: Invalid credentials
+        "5XX":
+          description: Unexpected error.
 info:
   title: Task API
   description: ""
@@ -133,6 +186,11 @@ servers:
   - url: http://localhost:3000
 components:
   schemas:
+    AccessToken:
+      type: object
+      properties:
+        accessToken:
+          type: string
     CreateTaskDto:
       type: object
       required:
@@ -145,7 +203,15 @@ components:
           type: string
     AuthCredentialsDto:
       type: object
-      properties: {}
+      properties:
+        username:
+          type: string
+          minimum: 4
+          maximum: 20
+        password:
+          type: string
+          minimum: 8
+          maximum: 20
     ArrayOfTasks:
       type: array
       items:
@@ -161,8 +227,15 @@ components:
           type: string
         status:
           type: string
+          enum: [OPEN, IN_PROGRESS, DONE]
         userId:
           type: number
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [OPEN, IN_PROGRESS, DONE]
   securitySchemes:
     bearerAuth:
       type: http
