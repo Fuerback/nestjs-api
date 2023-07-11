@@ -6,11 +6,26 @@ paths:
         - bearerAuth: []
       tags:
         - Tasks
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [OPEN, IN_PROGRESS, DONE]
+          description: The status of tasks to filter
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: The search term, it will search by title and description
       operationId: TasksController_getTasks
-      parameters: []
       responses:
         "200":
-          description: ""
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfTasks"
     post:
       security:
         - bearerAuth: []
@@ -120,10 +135,34 @@ components:
   schemas:
     CreateTaskDto:
       type: object
-      properties: {}
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+        description:
+          type: string
     AuthCredentialsDto:
       type: object
       properties: {}
+    ArrayOfTasks:
+      type: array
+      items:
+        $ref: "#/components/schemas/Task"
+    Task:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        userId:
+          type: number
   securitySchemes:
     bearerAuth:
       type: http
